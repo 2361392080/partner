@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="generator" content="Hugo 0.88.1">
+  <title>发起活动</title>
+
+  <script>
+    setTimeout(function () {
+      $('#msg').hide();
+    }, 2000);
+  </script>
+
+
+  <style>
+    * {
+        margin: 0px;
+        padding: 0px;
+    }
+    .map {
+      width: 100%;
+      height: 550px;
+      color: black;
+    }
+
+    .fonts {
+      color: black;
+      font-weight: bold;
+      /* font-style: oblique; */
+    }
+
+    .largefonts {
+      color:black;
+      font-weight: bold;
+      font-size: 20px;
+      /* font-style: oblique; */
+    }
+
+    .btn1 {
+      color: rgb(15, 76, 129);
+      text-shadow: none;
+      /* Prevent inheritance from `body` */
+      background-color: rgb(245, 223, 77);
+    }
+
+    .cover {
+      object-fit: cover;
+      width: 100%;
+      /* height: 250px; */
+    }
+
+    .cardbg {
+      background-color: rgba(0, 0, 0, 0.15);
+      /* border-color: rgb(245, 223, 75); */
+    }
+  </style>
+
+</head>
+
+<body class="text-center">
+      {% if messages %}
+      {% for message in messages %}
+      <div class="alert {{ message.tags }}" role="alert" id="msg">
+        {{ message }}
+      </div>
+      {% endfor %}
+      {% endif %}
+      <div class="row">
+        <div class="col-md-4">
+          <br>
+          <div id='container' class="map"></div>
+          <div id="panel"></div>
+        </div>
+        <div class="col-md-8">
+          <div class="card fonts cardbg">
+            <h5 class="card-header largefonts cardbg2">{{ activity.title }}</h5>
+            <div class="card-body">
+              <h5 class="card-title fonts">发起人：<a href="/friendpage/{{ initiator.id }}">{{ activity.initiator }}</a>
+              </h5>
+
+              <p class="card-text">地点：{{ activity.location }}</p>
+              <p class="card-text">参与人数：{{ nums }}/{{ activity.nums }} </p>
+              <p>参与者：<a href="/friendpage/{{ initiator.id }}">{{ activity.initiator }}</a>&nbsp
+                {% for participant in participants %}
+                <a href="/friendpage/{{ participant.id }}">{{ participant.username }}</a>&nbsp
+                {% endfor %}
+              </p>
+              <p class="card-text">{{ activity.startTime }} - {{ activity.endTime }}</p>
+              {% if activity.initiator == user.username %}
+              <form action="/avtivities/delete/" method="post">
+                {% csrf_token %}
+                <input type="text" style="display: none;" name="activityID" id="inputActivityID" class="form-control"
+                  required>
+                <!-- <button type="submit" class="btn1 fonts">&nbsp修改活动&nbsp</button> -->
+                <button type="submit" class="btn1 fonts">&nbsp删除活动&nbsp</button>
+              </form>
+              {% else %}
+              {% if is_in %}
+              <button type="submit" class="btn1 fonts"
+                onclick="triggerCancelTakePartInActivityRequest('{{ activity.id }}')">&nbsp取消参与活动&nbsp</button>
+              {% else %}
+              <button type="submit" class="btn1 fonts"
+                onclick="triggerTakePartInActivityRequest('{{ activity.id }}')">&nbsp参与活动&nbsp</button>
+              {% endif %}
+              {% endif %}
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <script type="text/javascript" src="https://webapi.amap.com/maps?v=2.0&key=fe7ecc2140a2442e099c319ee5e0792c">
+      </script>
+      <script type="text/javascript">
+        var map = new AMap.Map('container', {
+          center: [118.101, 24.588],
+          zoom: 15,
+          // viewMode: '3D',
+        });
+
+        var marker = new AMap.Marker({
+          position: new AMap.LngLat("{{ activity.lng }}", "{{ activity.lat }}"),
+          offset: new AMap.Pixel(-10, -10),
+          size: new AMap.Size(50, 50),
+          icon: '//vdata.amap.com/icons/b18/1/2.png',
+          title: 'test'
+        });
+        map.add(marker);
+        map.setFitView();
+        // 引入工具条，比例尺和鹰眼等插件
+        AMap.plugin([
+          'AMap.Scale',
+          'AMap.Geolocation',
+          'AMap.Driving',
+        ], function () {
+          // 在图面添加比例尺控件，展示地图在当前层级和纬度下的比例尺
+          map.addControl(new AMap.Scale());
+
+          // 在图面添加定位控件，用来获取和展示用户主机所在的经纬度位置
+          var geolocation = new AMap.Geolocation({
+            enableHighAccuracy: true,//是否使用高精度定位，默认:true
+            timeout: 10000,          //超过10秒后停止定位，默认：5s
+            position: 'RB',    //定位按钮的停靠位置
+            buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+            zoomToAccuracy: true,   //定位成功后是否自动调整地图视野到定位点
+
+          });
+          map.addControl(geolocation);
+          geolocation.getCurrentPosition(function (status, result) {
+            if (status == 'complete') {
+              onComplete(result)
+            } else {
+              onError(result)
+            }
+          });
+          function onComplete(data) {
+            // console.log(data.position.lat, data.position.lng)
+            //构造路线导航类
+            var driving = new AMap.Driving({
+              map: map,
+              panel: "panel"
+            });
+            // 根据起终点经纬度规划驾车导航路线
+            driving.search(new AMap.LngLat(data.position.lng, data.position.lat), new AMap.LngLat("{{ activity.lng }}", "{{ activity.lat }}"), function (status, result) {
+              // result 即是对应的驾车导航信息，相关数据结构文档请参考  https://lbs.amap.com/api/javascript-api/reference/route-search#m_DrivingResult
+              // if (status === 'complete') {
+              //   log.success('绘制驾车路线完成')
+              // } else {
+              //   log.error('获取驾车数据失败：' + result)
+              // }
+            });
+          }
+        });
+        // console.log("{{ nums }}")
+        // $("input#inputActivityID").click(function () {
+        //   document.getElementById("inputActivityID").value = "{{ activity.id }}"
+        // })
+        "{% if activity.initiator == user.username %}"
+        document.getElementById("inputActivityID").value = "{{ activity.id }}"
+        "{% endif %}"
+        // console.log("{{ activity.id }}")
+
+        // 活动
+        function onActivityRequestTakenPartIn() {
+          location.reload();
+        }
+
+        function onActivityRequestTakenPartInCancelled() {
+          location.reload();
+        }
+
+        function triggerTakePartInActivityRequest(activity_id) {
+          takePartInActivity(activity_id, onActivityRequestTakenPartIn)
+        }
+
+        function triggerCancelTakePartInActivityRequest(activity_id) {
+          cancelTakePartInActivity(activity_id, onActivityRequestTakenPartInCancelled)
+        }
+
+
+      </script>
+
+</body>
+
+</html>

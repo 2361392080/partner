@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+
+    <title>Go!!</title>
+
+
+
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        #msg {
+          width: 100%;
+          position: fixed;
+          z-index: 3000;
+          font-size: 15px;
+          text-align: center;
+          color: brown;
+        }
+        .button {
+            position: fixed;
+            /* right: 20px;  */
+            height: 30px;
+            width: 50px;
+            top: 5px;
+            /* width:60px; */
+            margin-bottom: -1px;
+
+            color:black;
+            font-weight: bold;
+        }
+
+        .map {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            z-index: -1000;
+        }
+
+
+        #tipinput {
+            position: fixed;
+            width: 80%;
+            height: 20px;
+            top:7px;
+            left: 60px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+
+        .content-window-card p {
+            height: 2rem;
+        }
+
+
+        div.info-top div {
+            display: inline-block;
+            color: #333333;
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 31px;
+            padding: 0 10px;
+        }
+
+
+        div.info-top img:hover {
+            box-shadow: 0px 0px 5px #000;
+        }
+
+
+
+        span {
+            margin-left: 5px;
+            font-size: 11px;
+        }
+
+        .info-middle img {
+            float: left;
+            margin-right: 6px;
+        }
+    </style>
+</head>
+
+<body>
+
+{% if messages %}
+    {% for message in messages %}
+    <div class="alert {{ message.tags }}" role="alert" id="msg">
+    {{ message }}
+    </div>
+    {% endfor %}
+{% endif %}
+            <div class="row">
+                <div class="col-sm-4">
+                    <a href="/create/"><button class="button">返回</button></a>
+                    <input type="text" id='tipinput' placeholder="查询地点" />
+                </div>
+            </div>
+            <div id='container' class="map"></div>
+            <!-- <div id="map1"></div> -->
+<script type="text/javascript"
+src="https://webapi.amap.com/maps?v=2.0&key=fe7ecc2140a2442e099c319ee5e0792c">
+</script>
+<script type="text/javascript">
+
+                // console.log("{{ now_time }}")
+                // "{% for p in activities_right_time %}"
+                // console.log("{{ p }}")
+                // "{% endfor %}"
+                // p.startTime.year>=year and p.startTime.month>=month and p.startTime.day>=day and p.startTime.month>=month and p.startTime.hour>=hour andp.startTime.minute>minute
+                var map = new AMap.Map('container', {
+                    center: [118.101, 24.588],
+                    zoom: 11,
+                    // viewMode: '3D',
+
+                });
+                //输入提示
+                var autoOptions = {
+                    input: "tipinput"
+                };
+                // 引入工具条，比例尺和鹰眼等插件
+                AMap.plugin([
+                    'AMap.ToolBar',
+                    'AMap.Scale',
+                    'AMap.HawkEye',
+                    'AMap.Geolocation',
+                    'AMap.PlaceSearch',
+                    'AMap.AutoComplete',
+                ], function () {
+                    // 在图面添加工具条控件，工具条控件集成了缩放、平移、定位等功能按钮在内的组合控件
+                    map.addControl(new AMap.ToolBar({
+                        position: {
+                            top: '100px',
+                            right: '18px'
+                        }
+                    }));
+                    // 在图面添加比例尺控件，展示地图在当前层级和纬度下的比例尺
+                    map.addControl(new AMap.Scale());
+                    // 在图面添加鹰眼控件，在地图右下角显示地图的缩略图
+                    map.addControl(new AMap.HawkEye({
+                        isOpen: true,
+
+                    }));
+                    // 在图面添加定位控件，用来获取和展示用户主机所在的经纬度位置
+                    map.addControl(new AMap.Geolocation({
+                        position: {
+                            top: '60px',
+                            right: '20px'
+                        }
+                    }));
+
+                    //构造地点查询类
+                    var auto = new AMap.AutoComplete(autoOptions);
+                    var placeSearch = new AMap.PlaceSearch({
+                        map: map
+                    });
+                    auto.on("select", select);//注册监听，当选中某条记录时会触发
+                    function select(e) {
+                        placeSearch.setCity(e.poi.adcode);
+                        placeSearch.search(e.poi.name);  //关键字查询查询
+                    }
+                });
+
+                // 用户发起的
+                var lnglats = [];
+                var con = [];
+                var id = [];
+
+                "{% if request.session.is_login %}"
+                "{% for p in activity %}"
+                lnglats.push(["{{ p.lng }}", "{{ p.lat }}"])
+                con.push('<div class="card-body text-center" style="max-width: 18rem;"> <div class="card-header">{{ p.title }}</div> <p class="card-text">发起人：{{ p.initiator }}</p><p class="card-text">{{ p.startTime }}&nbsp-<br>{{ p.endTime }}</p><a href="/details/{{ p.id }}" class="btn btn-outline-secondary btn-sm">查看详情</a></div>');
+                id.push('{{ p.id }}')
+                "{% endfor %}"
+                "{% endif %}"
+                var infoWindow = new AMap.InfoWindow({ offset: new AMap.Pixel(0, -30) });
+                for (var i = 0, marker; i < lnglats.length; i++) {
+                    var marker = new AMap.Marker({
+                        position: lnglats[i],
+                        map: map,
+                        offset: new AMap.Pixel(-10, -10),
+                        size: new AMap.Size(50, 50),
+                        icon: '../../../static/images/star.png'
+                    });
+                    marker.content = con[i];
+                    marker.on('click', markerClick);
+                    //marker.emit('click', { target: marker });
+                }
+
+                // 用户的好友发起的
+                var lnglats2 = [];
+                var con2 = [];
+                var id2 = [];
+                "{% for q in activities %}"
+                lnglats2.push(["{{ q.lng }}", "{{ q.lat }}"])
+                con2.push('<div class="card-body text-center" style="max-width: 18rem;"> <div class="card-header">{{ q.title }}</div> <p class="card-text">发起人：{{ q.initiator }}</p><p class="card-text">{{ q.startTime }}&nbsp-<br>{{ q.endTime }}</p><a href="/activities/detailsActivity/{{ q.id }}" class="btn btn-outline-secondary btn-sm">查看详情</a></div>');
+                id2.push('{{ q.id }}')
+                "{% endfor %}"
+                for (var i = 0, marker; i < lnglats2.length; i++) {
+                    var marker = new AMap.Marker({
+                        position: lnglats2[i],
+                        map: map,
+                        offset: new AMap.Pixel(-10, -10),
+                        size: new AMap.Size(50, 50),
+                        icon: '../../../static/img/star_yellow1.png'
+                    });
+                    marker.content = con2[i];
+                    marker.on('click', markerClick);
+                    //marker.emit('click', { target: marker });
+                }
+
+
+
+                function markerClick(e) {
+                    infoWindow.setContent(e.target.content);
+                    infoWindow.open(map, e.target.getPosition());
+                }
+                map.setFitView();
+
+            </script>
+<script>
+        setTimeout(function () {
+            $('#msg').hide();
+        }, 2000);
+</script>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'css/login/login.css' %}">
+    <style>
+
+    </style>
+</head>
+<body>
+
+<header class="header">
+ <form action="/login/" class="login-form" method="post">
+      {% csrf_token %}
+        <h3>login form</h3>
+        <input type="text" name="username" id="inputUsername" placeholder="enter your username" class="box" required="">
+        <input type="password" name="password" id="inputPassword" placeholder="enter your password" class="box" required="">
+        <div class="remember">
+            <input type="checkbox" name="" id="remember-me">
+            <label for="remember-me">remember me</label>
+        </div>
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <input type="submit" value="login now" class="btn">
+        <p>have an account? <a href="/register/">register now</a></p>
+ </form>
+</header>
+
+</body>
+</html>

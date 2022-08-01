@@ -1,0 +1,588 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="generator" content="Hugo 0.88.1">
+  <title>GoHomepage</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../../../static/css/bootstrap.min.css" rel="stylesheet">
+
+
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    .fonts {
+      color: black;
+      font-weight: bold;
+      font-size: 15px;
+      /* font-style: oblique; */
+    }
+
+    .fonts2 {
+      color: black;
+      font-size: 15px;
+      /* font-style: oblique; */
+    }
+
+    .largefonts {
+      color: black;
+      font-weight: bold;
+      font-size: 20px;
+      /* font-style: oblique; */
+    }
+
+    #div {
+      margin-bottom: 80px;
+    }
+
+    .btn1 {
+      color: rgb(15, 76, 129);
+      text-shadow: none;
+      /* Prevent inheritance from `body` */
+      background-color: rgb(245, 223, 77);
+    }
+
+    .btn2 {
+      color: rgb(15, 76, 129);
+      text-shadow: none;
+      /* Prevent inheritance from `body` */
+      background-color: rgb(190, 16, 16);
+    }
+
+    .btn3 {
+      color: rgb(15, 76, 129);
+      text-shadow: none;
+      /* Prevent inheritance from `body` */
+      background-color: rgb(18, 155, 59);
+    }
+
+    .cover {
+      object-fit: cover;
+      /* width: 100%; */
+      /* height: 100px; */
+    }
+
+
+
+    hr {
+      border: 0;
+      height: 1px;
+      background-image: -webkit-linear-gradient(left, transparent, #F5DF4D, transparent);
+      background-image: -moz-linear-gradient(left, transparent, #F5DF4D, transparent);
+      background-image: -ms-linear-gradient(left, transparent, #F5DF4D, transparent);
+      background-image: -o-linear-gradient(left, transparent, #F5DF4D, transparent);
+    }
+    .nav li {
+        width: 25%;
+    }
+
+    a.nav-link {
+      color: black;
+      /* border-color: rgb(245, 223, 75); */
+    }
+
+    a#home-tab.nav-link.active {
+      color: rgb(15, 76, 129);
+      background: rgb(245, 223, 75);
+      border-color: rgb(245, 223, 75);
+    }
+
+    a#profile-tab.nav-link.active {
+      color: rgb(15, 76, 129);
+      background: rgb(245, 223, 75);
+      border-color: rgb(245, 223, 75);
+    }
+
+    a#contact-tab.nav-link.active {
+      color: rgb(15, 76, 129);
+      background: rgb(245, 223, 75);
+      border-color: rgb(245, 223, 75);
+    }
+
+    a#message-tab.nav-link.active {
+      color: rgb(15, 76, 129);
+      background: rgb(245, 223, 75);
+      border-color: rgb(245, 223, 75);
+    }
+
+    /* 分割 */
+    a#home-tab.nav-link:hover {
+      border-color: rgb(245, 223, 75);
+      color: rgb(245, 223, 75);
+    }
+
+    a#profile-tab.nav-link:hover {
+      border-color: rgb(245, 223, 75);
+      color: rgb(245, 223, 75);
+    }
+
+    a#contact-tab.nav-link:hover {
+      border-color: rgb(245, 223, 75);
+      color: rgb(245, 223, 75);
+    }
+
+    a#message-tab.nav-link:hover {
+      border-color: rgb(245, 223, 75);
+      color: rgb(245, 223, 75);
+    }
+
+    /* 分割 */
+    a#home-tab.nav-link.active:hover {
+      color: rgb(15, 76, 129);
+      background: rgb(245, 223, 75);
+      border-color: rgb(245, 223, 75);
+    }
+
+    a#profile-tab.nav-link.active:hover {
+      color: rgb(15, 76, 129);
+      background: rgb(245, 223, 75);
+      border-color: rgb(245, 223, 75);
+    }
+
+    a#contact-tab.nav-link.active:hover {
+      color: rgb(15, 76, 129);
+      background: rgb(245, 223, 75);
+      border-color: rgb(245, 223, 75);
+    }
+
+    a#message-tab.nav-link.active:hover {
+      color: rgb(15, 76, 129);
+      background: rgb(245, 223, 75);
+      border-color: rgb(245, 223, 75);
+    }
+
+    ul#myTab.nav.nav-tabs {
+      border-color: rgb(245, 223, 75);
+    }
+
+    /* 表格 */
+    .table-hover>tbody>tr:hover {
+      background-color: rgba(255, 255, 255, 0.25) !important;
+    }
+
+    /* 弹框 */
+    .modal-content {
+      background-color: rgb(15, 76, 129) !important;
+    }
+
+    /* 表单 */
+    .form-signin {
+      width: 100%;
+      max-width: 330px;
+      padding: 15px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .form-signin .form-control {
+      position: relative;
+      box-sizing: border-box;
+      height: auto;
+      padding: 10px;
+      font-size: 16px;
+      background-color: rgb(15, 76, 129);
+      color: rgb(245, 223, 77);
+    }
+
+    .form-signin .form-control:focus {
+      border: 1px solid rgb(245, 223, 77);
+    }
+
+    .form-signin input[type="text"] {
+      margin-bottom: -1px;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    .form-signin .btn1 {
+      color: rgb(15, 76, 129);
+      text-shadow: none;
+      /* Prevent inheritance from `body` */
+      background-color: rgb(245, 223, 77);
+    }
+
+    .acForms {
+      margin-top: 0px;
+    }
+  </style>
+</head>
+
+<body class="text-center">
+
+  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <header class="masthead mb-auto">
+      <div class="inner">
+        <nav class="nav nav-masthead justify-content-center">
+          <a class="nav-link" href="/">首页</a>
+          <a class="nav-link" href="/activities/">活动</a>
+          <a class="nav-link active" href="/home/">用户</a>
+        </nav>
+      </div>
+    </header>
+
+    <main role="main" class="inner cover">
+      <!-- 修改用户名和个性签名 -->
+      <div class="modal fade" id="myModal">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="largefonts">修改信息</h5>
+            </div>
+            <form action="/changeDetails/" class="form-signin acForms" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="modal-body">
+                <div style="display: none;">用户名</div>
+                <input style="display: none;" type="text" name="userName2" id="inputUserName2" class="form-control"
+                  required="" autofocus="">
+                <div style="text-align: left">用户名</div>
+                <input type="text" name="userName" id="inputUserName" class="form-control" required="" autofocus="">
+                <div style="text-align: left">个性签名</div>
+                <input type="text" name="personalSign" id="inputPersonalSign" class="form-control" required="">
+              </div>
+              <div class="modal-footer">
+                <button class="btn1 fonts" data-dismiss="modal">关闭</button>
+                <button class="btn1 fonts">确认更改</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- 添加好友 -->
+      <div class="modal fade" id="searchModal">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="largefonts">搜索用户</h5>
+            </div>
+            <form action="/searchAccount/" class="form-signin acForms" method="get" onsubmit="return executeQuery();">
+              {% csrf_token %}
+              <div class="modal-body">
+                <div style="text-align: left">请输入用户名</div>
+                <input type="text" name="q" id="searchUserName" class="form-control" required="" autofocus="">
+              </div>
+              <div class="modal-footer">
+                <button class="btn1 fonts" data-dismiss="modal">关闭</button>
+                <button class="btn1 fonts" type="submit">搜索</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- 修改头像 -->
+      <div class="modal fade" id="imageModal">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="largefonts">修改头像</h5>
+            </div>
+            <form action="/changeHeadimg/" class="form-signin acForms" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="modal-body">
+                <div style="text-align: left">上传头像</div>
+                <input type="file" name="headimg" id="uploadHeadimg" accept="image/*" class="form-control">
+                <br>
+                <svg class="bd-placeholder-img rounded-circle" id="previewHead" display="none" width="200" height="200"
+                  role="img" stroke-width:1 aria-label="Placeholder: 70*70" preserveAspectRatio="xMidYMid slice"
+                  focusable="false">
+                  <rect width="100%" height="100%" fill="transparent" />
+                  <image class="cover" id="previewHeadimg" width="200" height="200" href=""></image>
+                </svg>
+                <!-- <img width="200" height="200" style="display: none;" src="" id="previewHeadimg"> -->
+              </div>
+              <div class="modal-footer">
+                <button class="btn1 fonts" data-dismiss="modal">取消</button>
+                <button class="btn1 fonts">提交</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+      <svg class="bd-placeholder-img rounded-circle" width="200" height="200" role="img" stroke-width:1
+        aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
+        <rect width="100%" height="100%" fill="transparent" />
+        <image class="cover" id="img1" width="200" height="200" href="{{ home.headimg.url }}"></image>
+        <image class="change" id="img2" width="200" height="200" display="none"
+          href="../../../static/img/changeHeadimg.png"></image>
+      </svg>
+      <button class="btn1 fonts" id="imageBtn" type="submit" style="display: none;" data-toggle="modal"
+        data-target="#imageModal"></button>
+      <h2 class="largefonts" id="username">{{ home.username }}</h2>
+      <p id="personalSign">{{ home.personalSign }}</p>
+      <button class="btn1 fonts" type="submit" data-toggle="modal"
+        data-target="#myModal">修改信息</button>&nbsp&nbsp&nbsp&nbsp<button class="btn1 fonts" type="submit"
+        data-toggle="modal" data-target="#searchModal">添加好友</button>
+      <br><br>
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+            aria-selected="true">好友({{ friends|length }})</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+            aria-selected="false">发起记录</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
+            aria-selected="false">参与记录</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link" id="message-tab" data-toggle="tab" href="#message" role="tab" aria-controls="contact"
+            aria-selected="false">消息({{ friend_requests|length }})</a>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+          <div class="alum py-3">
+            <!-- 好友 -->
+            {% if friends %}
+            <ul class="list-unstyled ul">
+              {% for friend in friends %}
+              <li class="media">
+                <svg class="bd-placeholder-img" width="100" height="100" role="img" preserveAspectRatio="xMidYMid slice"
+                  focusable="false">
+                  <rect width="100%" height="100%" fill="transparent" />
+                  <image class="cover" width="100" height="100" href="{{ friend.headimg.url }}"></image>
+                </svg>
+                <div class="media-body" style="text-align:left;">
+                  <h5 class="fonts">&nbsp&nbsp{{ friend.username }}</h5>
+                  <p>&nbsp&nbsp {{ friend.personalSign }}</p>
+                  <div id="searchID" style="display: none;">{{ friend.id }}</div>
+                </div>
+              </li>
+              <hr>
+              {% endfor %}
+            </ul>
+            {% else %}
+            <h5 class="fonts">无好友</h5>
+            {% endif %}
+          </div>
+        </div>
+        <!-- 活动1 -->
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+          <div class="alum py-3">
+            {% if length == 0 %}
+            <h5 class="fonts">还未发起任何活动</h5>
+            {% else %}
+            <table class="table table-borderless table-hover">
+              <thead class="head fonts">
+                <tr>
+                  <th scope="col">&nbsp</th>
+                  <th scope="col">活动主题</th>
+                  <th scope="col">活动时间</th>
+                  <th scope="col">最多参与人数</th>
+                  <th style="display: none;" scope="col">id</th>
+                  <th scope="col">状态</th>
+                </tr>
+              </thead>
+              <tbody class="fonts2">
+                {% for p in activities1 %}
+                <tr>
+                  <th scope="row">{{ forloop.counter }}</th>
+                  <td>{{ p.title }}</td>
+                  <td>{{ p.startTime }} - {{ p.endTime }}</td>
+                  <td>{{ p.nums }}</td>
+                  <td style="display: none;" id="acid">{{ p.id }}</td>
+                  <td>
+                    {% if p.startTime < now_time and p.endTime > now_time %}
+                      <span class="badge badge-light">进行中</span>
+                    {% elif p.startTime < now_time and p.endTime < now_time %}
+                      <span class="badge badge-danger">已结束</span>
+                    {% elif p.startTime > now_time %}
+                      <span class="badge badge-success">未开始</span>
+                    {% endif %}
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- 活动2 -->
+        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+          <div class="alum py-3">
+            {% if activities2|length == 0 %}
+            <h5 class="fonts">还未参与任何活动</h5>
+            {% else %}
+            <table class="table table-borderless table-hover table2">
+              <thead class="head fonts">
+                <tr>
+                  <th scope="col">&nbsp</th>
+                  <th scope="col">活动主题</th>
+                  <th scope="col">发起人</th>
+                  <th scope="col">活动时间</th>
+                  <th scope="col">最多参与人数</th>
+                  <th style="display: none;" scope="col">id</th>
+                  <th scope="col">状态</th>
+                </tr>
+              </thead>
+              <tbody class="fonts2">
+                {% for p in activities2 %}
+                <tr>
+                  <th scope="row">{{ forloop.counter }}</th>
+                  <td>{{ p.title }}</td>
+                  <td>{{ p.initiator }}</td>
+                  <td>{{ p.startTime }} - {{ p.endTime }}</td>
+                  <td>{{ p.nums }}</td>
+                  <td style="display: none;" id="ad">{{ p.id }}</td>
+                  <td>
+                    {% if p.startTime < now_time and p.endTime > now_time %}
+                      <span class="badge badge-light">进行中</span>
+                    {% elif p.startTime < now_time and p.endTime < now_time %}
+                      <span class="badge badge-danger">已结束</span>
+                    {% elif p.startTime > now_time %}
+                      <span class="badge badge-success">未开始</span>
+                    {% endif %}
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            {% endif %}
+          </div>
+        </div>
+        <!-- 好友申请 -->
+        <div class="tab-pane fade" id="message" role="tabpanel" aria-labelledby="message-tab">
+          <div class="alum py-3">
+            {% if friend_requests|length == 0 %}
+            <h5 class="fonts">无好友申请</h5>
+            {% else %}
+            <table class="table table-borderless table-hover">
+              <thead class="head fonts">
+                <tr>
+                  <th scope="col">&nbsp</th>
+                  <th scope="col">用户名</th>
+                  <th scope="col">操作</th>
+                  <th style="display: none;" scope="col">id</th>
+                </tr>
+              </thead>
+              <tbody class="fonts2">
+                {% for request in friend_requests %}
+                <tr>
+                  <th scope="row">{{ forloop.counter }}</th>
+                  <td>{{ request.sender.username }}</td>
+                  <td>
+                    <button class="btn1 fonts" type="button"
+                      onclick="triggerAcceptFriendRequest('{{ request.id }}')">&nbsp&nbsp同意&nbsp&nbsp</button>
+                    <button class="btn1 fonts" type="button" onclick="triggerDeclineFriendRequest('{{ request.id }}')">&nbsp&nbsp拒绝&nbsp&nbsp</button>
+                  </td>
+                  <td style="display: none;" id="acd">{{ request.sender.id }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+<script src="{%  static 'js/jquery-3.6.0.min.js'%}"></script>
+<script src="{%  static 'js/bootstrap.js'%}"></script>
+      <script>
+        $("image#img1").hover(function () {
+          $("image#img2").css("display", "block")
+        });
+        $("image#img2").mouseout(function () {
+          $("image#img2").css("display", "none")
+        });
+        $("image#img2").click(function () {
+          document.getElementById("imageBtn").click()
+        })
+        // console.log(document.getElementById("username").textContent)
+        document.getElementById("inputUserName").value = document.getElementById("username").textContent
+        document.getElementById("inputUserName2").value = document.getElementById("username").textContent
+        document.getElementById("inputPersonalSign").value = document.getElementById("personalSign").textContent
+
+        // 图片预览
+        $(function () {
+          // $("#previewHeadimg").click(function () {
+          //   $("#uploadHeadimg").click();
+          // })
+          $("#uploadHeadimg").change(function () {
+
+
+            var files = $(this)[0].files[0];    //获取文件信息
+            if (files) {
+              var reader = new FileReader();  //调用FileReader
+              reader.onload = function (evt) {   //读取操作完成时触发。
+                $("#previewHead").attr("display", "block");
+                $("#previewHeadimg").attr('href', evt.target.result)  //将img标签的src绑定为DataURL
+              }
+              reader.readAsDataURL(files); //将文件读取为 DataURL(base64)
+            }
+            // else {
+            //   alert("上传失败");
+            // }
+          })
+        })
+
+        $(".table tbody").on("click", "tr", function () {
+          // console.log($(this).children()[4].textContent);
+          window.location.href = '/details/' + $(this).children()[4].textContent;
+        })
+
+        $(".table2 tbody").on("click", "tr", function () {
+          // console.log($(this).children()[4].textContent);
+          window.location.href = '/details/' + $(this).children()[5].textContent;
+        })
+
+        function executeQuery() {
+          var query = document.getElementById("searchUserName").value
+          window.location.replace("/searchAccount/?q=" + query)
+          return false
+        }
+
+        // 好友
+        $(".media").mouseover(function () {
+          $(this).css("background-color", "rgba(255, 255, 255, 0.25)")
+        });
+        $(".media").mouseout(function () {
+          $(this).css("background-color", "transparent")
+        });
+        $(".ul li").on("click", function () {
+          // console.log($(this).children().children()[4].textContent);
+          window.location.href = '/friendpage/' + $(this).children().children()[4].textContent;
+        })
+
+        function onFriendRequestAccepted() {
+          location.reload();
+        }
+
+        function onFriendRequestDeclined() {
+          location.reload();
+        }
+
+        function triggerAcceptFriendRequest(friend_request_id) {
+          acceptFriendRequest(friend_request_id, onFriendRequestAccepted)
+        }
+
+        function triggerDeclineFriendRequest(friend_request_id) {
+          declineFriendRequest(friend_request_id, onFriendRequestDeclined)
+        }
+
+      </script>
+      {% include 'accept_friend_request.html' %}
+      {% include 'decline_friend_request.html' %}
+    </main>
+  </div>
+
+</body>
+
+</html>

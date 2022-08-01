@@ -1,0 +1,29 @@
+<script type="text/javascript">
+
+    function declineFriendRequest(friend_request_id, uiUpdateFunction){
+        // 直接填friend_request_id好像不起作用
+        var url = "{% url 'friend-request-decline' friend_request_id=7654576872384622143 %}".replace("7654576872384622143", friend_request_id)
+        $.ajax({
+            type:"GET",
+            dataType:"json",
+            url: url,
+            timeout:5000,
+            success:function(data){
+                // console.log("SUCCESS:" + data)  //debug时使用
+                if(data['response'] == "已拒绝好友申请"){
+                    // update ui
+                }
+                else if(data['response']!=null){
+                    alert(data['response'])
+                }
+            },
+            error:function(data){
+                alert("Something went wrong:" + data)
+            },
+            complete:function(data){
+                uiUpdateFunction()
+            }
+        })
+    }
+
+</script>

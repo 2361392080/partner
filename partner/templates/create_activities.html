@@ -1,0 +1,202 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="generator" content="Hugo 0.88.1">
+  <title>发起活动</title>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="{% static 'css/login/style.css' %}">
+
+  <script>
+    setTimeout(function () {
+      $('#msg').hide();
+    }, 2000);
+  </script>
+  <style type="text/css">
+      #container {
+          height:100%;
+          width: 100%;
+          position: fixed;
+          top:0px;
+          z-index: -1000;
+      }
+      .ff {
+          margin-top: 70px;
+          width: 250px;
+          height: 100%;
+          background-color: beige;
+      }
+      .form-signin {
+      padding: 15px;
+    }
+      .form-signin .form-control {
+      position: relative;
+      box-sizing: border-box;
+      height: auto;
+      padding: 10px;
+      font-size: 16px;
+      background-color: #bac34e;
+      color: rgb(245, 223, 77);
+      width: 200px;
+    }
+      .form-signin .acItems {
+      margin-bottom: 0px;
+      margin-top: 10px;
+      text-align: left;
+    }
+
+    .form-signin #inputPnum,
+    #uploadfile {
+      height: 50px;
+    }
+     .form-signin .btn1 {
+      width: 100px;
+      height: 30px;
+      background-color: #FFD026;
+    }
+  </style>
+
+
+</head>
+
+<body>
+<div id='container' class="map" ></div>
+<header class="header">
+    {% if request.session.is_login %}
+    <h1 class="logo">你好！{{request.session.username}}</h1>
+    {% else %}
+    <a href="app.html" class="logo"> <i class="fas fa-shopping-basket"></i>伙伴系统</a>
+    {% endif %}
+    <nav class="navbar">
+        <a href="#">首页</a>
+        <a href="#">活动发布</a>
+        <a href="#">活动查询</a>
+        <a href="#">活动删除</a>
+        <a href="#">blog</a>
+        <a href="#">contact</a>
+    </nav>
+
+    <div class="icons">
+        <div id="menu-btn" class="fas fa-bars"></div>
+        <div id="search-btn" class="fas fa-search"></div>
+        <div id="login-btn" class="fas fa-user"></div>
+    </div>
+
+    <form action="" class="search-form">
+        <input type="search" placeholder="search here..." id="search-box">
+        <label for="search-box" class="fas fa-search"></label>
+    </form>
+
+</header>
+
+
+
+<div class="ff">
+            <h1 style="padding-top:30px;padding-left: 20px ">活动发布表</h1>
+            <form action="/create/" class="form-signin acForms" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="acItems">活动主题</div>
+            <input type="text" name="activitiesName" id="inputAname" class="form-control" required="" autofocus="">
+            <div class="acItems">活动地点</div>
+            <input type="text" name="activitiesLocation" id="inputLocation" class="form-control" required="">
+            <div class="acItems">开始时间</div>
+            <input type="datetime-local" name="startTime" id="inputStime" class="form-control" required>
+            <div class="acItems">结束时间</div>
+            <input type="datetime-local" name="endTime" id="inputEtime" class="form-control" required>
+            <input type="text" style="display: none;" name="lat" id="inputLat" class="form-control" required>
+            <input type="text" style="display: none;" name="lng" id="inputLng" class="form-control" required>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="acItems">参与人数</div>
+                <input type="number" name="activitiesNumP" id="inputPnum" class="form-control" required="">
+              </div>
+              <div class="col-md-6">
+                <div class="acItems">上传封面</div>
+                <input type="file" name="img" id="uploadfile" accept="image/*" class="form-control">
+              </div>
+            </div>
+
+            {% if messages %}
+            <div class="messages">
+              {% for message in messages %}
+              <div id="msg" {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</div>
+              {% endfor %}
+            </div>
+            {% endif %}
+            <br>
+            <button class="btn1 fonts" type="submit">确认创建活动</button>
+          </form>
+          <img src="" id="image">
+</div>
+
+
+      <!-- <div id="map1"></div> -->
+      <script type="text/javascript" src="https://webapi.amap.com/maps?v=2.0&key=fe7ecc2140a2442e099c319ee5e0792c">
+      </script>
+      <script type="text/javascript">
+        var map = new AMap.Map('container', {
+          resizeEnable: true,
+          center: [118.101, 24.588],
+          zoom: 11,
+          // viewMode: '3D',
+        });
+        //输入提示
+        var autoOptions = {
+          input: "inputLocation"
+        };
+        // 引入工具条，比例尺和鹰眼等插件
+        AMap.plugin([
+          'AMap.ToolBar',
+          'AMap.PlaceSearch',
+          'AMap.AutoComplete',
+        ], function () {
+          //构造地点查询类
+          var auto = new AMap.AutoComplete(autoOptions);
+          var placeSearch = new AMap.PlaceSearch({
+            // map: map
+          });
+          auto.on("select", select);//注册监听，当选中某条记录时会触发
+          function select(e) {
+            placeSearch.setCity(e.poi.adcode);
+            placeSearch.search(e.poi.name);  //关键字查询查询
+            auto.search(e.poi.name, function (status, result) {
+              // console.log(result[Object.keys(result)[2]][0].location.lat);
+              // console.log(result[Object.keys(result)[2]][0].location.lng);
+              document.getElementById("inputLat").value=result[Object.keys(result)[2]][0].location.lat;
+              document.getElementById("inputLng").value=result[Object.keys(result)[2]][0].location.lng;
+              // console.log(document.getElementById("inputLat").value);
+            })
+          }
+
+        });
+
+        $(function () {
+          $("#image").click(function () {
+            $("#uploadfile").click();
+          })
+          $("#uploadfile").change(function () {
+
+            var files = $(this)[0].files[0];    //获取文件信息
+            if (files) {
+              var reader = new FileReader();  //调用FileReader
+              reader.onload = function (evt) {   //读取操作完成时触发。
+                $("#image").attr('src', evt.target.result)  //将img标签的src绑定为DataURL
+              }
+              reader.readAsDataURL(files); //将文件读取为 DataURL(base64)
+            }
+            // else {
+            //   alert("上传失败");
+            // }
+          })
+        })
+      </script>
+
+</body>
+
+</html>

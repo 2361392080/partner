@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.88.1">
+    <title>GoHomepage</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../../static/css/bootstrap.min.css" rel="stylesheet">
+
+
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .fonts {
+            color: rgb(245, 223, 75);
+            font-weight: bold;
+            font-size: 15px;
+            /* font-style: oblique; */
+        }
+
+        .fonts2 {
+            color: rgb(245, 223, 75);
+            font-size: 15px;
+            /* font-style: oblique; */
+        }
+
+        .largefonts {
+            color: rgb(245, 223, 75);
+            font-weight: bold;
+            font-size: 20px;
+            /* font-style: oblique; */
+        }
+
+        #div {
+            margin-bottom: 80px;
+        }
+
+        .btn1 {
+            color: rgb(15, 76, 129);
+            text-shadow: none;
+            /* Prevent inheritance from `body` */
+            background-color: rgb(245, 223, 77);
+        }
+
+        .cover {
+            object-fit: cover;
+            /* width: 100%; */
+            /* height: 100px; */
+        }
+
+        .cardbg {
+            background-color: rgba(0, 0, 0, 0.15);
+            border-color: rgb(245, 223, 75);
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background-image: -webkit-linear-gradient(left, transparent, #F5DF4D, transparent);
+            background-image: -moz-linear-gradient(left, transparent, #F5DF4D, transparent);
+            background-image: -ms-linear-gradient(left, transparent, #F5DF4D, transparent);
+            background-image: -o-linear-gradient(left, transparent, #F5DF4D, transparent);
+        }
+
+        a.nav-link {
+            color: rgb(245, 223, 75);
+            /* border-color: rgb(245, 223, 75); */
+        }
+
+        a#home-tab.nav-link.active {
+            color: rgb(15, 76, 129);
+            background: rgb(245, 223, 75);
+            border-color: rgb(245, 223, 75);
+        }
+
+        a#profile-tab.nav-link.active {
+            color: rgb(15, 76, 129);
+            background: rgb(245, 223, 75);
+            border-color: rgb(245, 223, 75);
+        }
+
+        a#contact-tab.nav-link.active {
+            color: rgb(15, 76, 129);
+            background: rgb(245, 223, 75);
+            border-color: rgb(245, 223, 75);
+        }
+
+        /* 分割 */
+        a#home-tab.nav-link:hover {
+            border-color: rgb(245, 223, 75);
+            color: rgb(245, 223, 75);
+        }
+
+        a#profile-tab.nav-link:hover {
+            border-color: rgb(245, 223, 75);
+            color: rgb(245, 223, 75);
+        }
+
+        a#contact-tab.nav-link:hover {
+            border-color: rgb(245, 223, 75);
+            color: rgb(245, 223, 75);
+        }
+
+        /* 分割 */
+        a#home-tab.nav-link.active:hover {
+            color: rgb(15, 76, 129);
+            background: rgb(245, 223, 75);
+            border-color: rgb(245, 223, 75);
+        }
+
+        a#profile-tab.nav-link.active:hover {
+            color: rgb(15, 76, 129);
+            background: rgb(245, 223, 75);
+            border-color: rgb(245, 223, 75);
+        }
+
+        a#contact-tab.nav-link.active:hover {
+            color: rgb(15, 76, 129);
+            background: rgb(245, 223, 75);
+            border-color: rgb(245, 223, 75);
+        }
+
+        ul#myTab.nav.nav-tabs {
+            border-color: rgb(245, 223, 75);
+        }
+
+        .table-hover>tbody>tr:hover {
+            background-color: rgba(255, 255, 255, 0.25) !important;
+        }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="../../../static/css/cover.css" rel="stylesheet">
+</head>
+
+<body class="text-center">
+
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <header class="masthead mb-auto">
+            <div class="inner">
+                <h3 class="masthead-brand">Go!!</h3>
+                <nav class="nav nav-masthead justify-content-center">
+                    <a class="nav-link" href="/">首页</a>
+                    <a class="nav-link" href="/activities/">活动</a>
+                    <a class="nav-link" href="/home/">用户</a>
+                </nav>
+            </div>
+        </header>
+
+        <main role="main" class="inner cover">
+
+            <svg class="bd-placeholder-img rounded-circle" width="200" height="200" role="img" stroke-width:1
+                aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
+                <title>Placeholder</title>
+                <rect width="100%" height="100%" fill="transparent" />
+                <image class="cover" width="200" height="200" href="{{ friend.headimg.url }}"></image>
+            </svg>
+            <h4 class="largefonts"> {{ friend.username }} </h4>
+            {% if is_friend %}
+            <span class="badge badge-success">好友</span>
+            {% elif is_self %}
+            <span class="badge badge-light">我自己</span>
+            {% else %}
+            <span class="badge badge-dark">非好友</span>
+            {% endif %}
+            <br><br>
+            <p> {{ friend.personalSign }} </p>
+
+            {% if is_friend %}
+            <button class="btn1 fonts" type="submit" href="#" id="id_unfriend_btn">&nbsp&nbsp删除好友&nbsp&nbsp</button>
+            {% elif request_sent == -1 %}
+            <button class="btn1 fonts" type="submit" href="#"
+                id="id_send_friend_request_btn">&nbsp&nbsp发出好友申请&nbsp&nbsp</button>
+            {% elif request_sent == 0 %}
+            <button class="btn1 fonts" type="button"
+                onclick="triggerAcceptFriendRequest('{{ friend_request.id }}')">&nbsp&nbsp同意好友申请&nbsp&nbsp</button>
+            <button class="btn1 fonts" type="button" onclick="triggerDeclineFriendRequest('{{ friend_request.id }}')">&nbsp&nbsp拒绝好友申请&nbsp&nbsp</button>
+            {% elif request_sent == 1 %}
+            <button class="btn1 fonts" type="submit" href="#"
+                id="id_cancel_friend_request_btn">&nbsp&nbsp取消好友申请&nbsp&nbsp</button>
+            {% endif %}
+
+
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                        aria-controls="home" aria-selected="true">ta发起的</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                        aria-controls="profile" aria-selected="false">ta参与的</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="alum py-3">
+                        <!-- 活动1 -->
+                        {% if is_friend or is_self %}
+                        {% if length == 0 %}
+                        <h5 class="fonts">还未发起任何活动</h5>
+                        {% else %}
+                        <table class="table table-borderless table-hover">
+                            <thead class="head fonts">
+                                <tr>
+                                    <th scope="col">&nbsp</th>
+                                    <th scope="col">活动主题</th>
+                                    <th scope="col">活动时间</th>
+                                    <th scope="col">最多参与人数</th>
+                                    <th style="display: none;" scope="col">id</th>
+                                    <th scope="col">状态</th>
+                                </tr>
+                            </thead>
+                            <tbody class="fonts2">
+                                {% for p in activities1 %}
+                                <tr>
+                                    <th scope="row">{{ forloop.counter }}</th>
+                                    <td>{{ p.title }}</td>
+                                    <td>{{ p.startTime }} - {{ p.endTime }}</td>
+                                    <td>{{ p.nums }}</td>
+                                    <td style="display: none;" id="acid">{{ p.id }}</td>
+                                    <td>
+                                        {% if p.startTime < now_time and p.endTime > now_time %}
+                                            <span class="badge badge-light">进行中</span>
+                                            {% elif p.startTime < now_time and p.endTime < now_time %} <span
+                                                class="badge badge-danger">已结束</span>
+                                                {% elif p.startTime > now_time %}
+                                                <span class="badge badge-success">未开始</span>
+                                                {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {% endif %}
+                        {% else %}
+                        <h5 class="fonts">该用户还不是你的好友<br>请先添加其为好友再进行查看</h5>
+                        {% endif %}
+                    </div>
+                </div>
+                <!-- 活动2 -->
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="alum py-3">
+                        {% if is_friend or is_self %}
+                        {% if activities2|length == 0 %}
+                        <h5 class="fonts">还未参与任何活动</h5>
+                        {% else %}
+                        <table class="table table-borderless table-hover table2">
+                            <thead class="head fonts">
+                                <tr>
+                                    <th scope="col">&nbsp</th>
+                                    <th scope="col">活动主题</th>
+                                    <th scope="col">发起人</th>
+                                    <th scope="col">活动时间</th>
+                                    <th scope="col">最多参与人数</th>
+                                    <th style="display: none;" scope="col">id</th>
+                                    <th scope="col">状态</th>
+                                </tr>
+                            </thead>
+                            <tbody class="fonts2">
+                                {% for p in activities2 %}
+                                <tr>
+                                    <th scope="row">{{ forloop.counter }}</th>
+                                    <td>{{ p.title }}</td>
+                                    <td>{{ p.initiator }}</td>
+                                    <td>{{ p.startTime }} - {{ p.endTime }}</td>
+                                    <td>{{ p.nums }}</td>
+                                    <td style="display: none;" id="acd">{{ p.id }}</td>
+                                    <td>
+                                        {% if p.startTime < now_time and p.endTime > now_time %}
+                                            <span class="badge badge-light">进行中</span>
+                                            {% elif p.startTime < now_time and p.endTime < now_time %} <span
+                                                class="badge badge-danger">已结束</span>
+                                                {% elif p.startTime > now_time %}
+                                                <span class="badge badge-success">未开始</span>
+                                                {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {% endif %}
+                        {% else %}
+                        <h5 class="fonts">该用户还不是你的好友<br>请先添加其为好友再进行查看</h5>
+                        {% endif %}
+                    </div>
+                </div>
+
+            </div>
+<script src="../../../static/jquery-3.6.0.min.js"></script>
+<script src="../../../static/bootstrap.js"></script>
+            <script>
+                $(".table tbody").on("click", "tr", function () {
+                    // console.log($(this).children()[4].textContent);
+                    window.location.href = '/activities/detailsActivity/' + $(this).children()[4].textContent;
+                })
+
+                $(".table2 tbody").on("click", "tr", function () {
+                    // console.log($(this).children()[4].textContent);
+                    window.location.href = '/activities/detailsActivity/' + $(this).children()[5].textContent;
+                })
+
+                function onFriendRequestSent() {
+                    location.reload();
+                }
+
+                function onFriendRequestCancelled() {
+                    location.reload();
+                }
+
+                function onFriendRemoved() {
+                    location.reload();
+                }
+
+                function onFriendRequestAccepted() {
+                    location.reload();
+                }
+
+                function onFriendRequestDeclined() {
+                    location.reload();
+                }
+
+                var sendFriendRequestBtn = document.getElementById("id_send_friend_request_btn")
+                if (sendFriendRequestBtn != null) {
+                    sendFriendRequestBtn.addEventListener("click", function () {
+                        sendFriendRequest("{{ friend.id }}", onFriendRequestSent)
+                    })
+                }
+
+                var cancelFriendRequestBtn = document.getElementById("id_cancel_friend_request_btn")
+                if (cancelFriendRequestBtn != null){
+                    cancelFriendRequestBtn.addEventListener("click", function(){
+                        cancelFriendRequest("{{ friend.id }}", onFriendRequestCancelled)
+                    })
+                }
+
+                var removeFriendBtn = document.getElementById("id_unfriend_btn")
+                if (removeFriendBtn != null){
+                    removeFriendBtn.addEventListener("click", function(){
+                        removeFriend("{{ friend.id }}", onFriendRemoved)
+                    })
+                }
+
+                function triggerAcceptFriendRequest(friend_request_id) {
+                    acceptFriendRequest(friend_request_id, onFriendRequestAccepted)
+                }
+
+                function triggerDeclineFriendRequest(friend_request_id) {
+                    declineFriendRequest(friend_request_id, onFriendRequestDeclined)
+                }
+            </script>
+            {% include 'friends/snippets/send_friend_request.html' %}
+            {% include 'friends/snippets/remove_friend.html' %}
+            {% include 'friends/snippets/accept_friend_request.html' %}
+            {% include 'friends/snippets/decline_friend_request.html' %}
+            {% include 'friends/snippets/cancel_friend_request.html' %}
+        </main>
+
+        <footer class="mastfoot mt-auto">
+            <!--
+        <div class="inner">
+          <p>网站设计by <a href="#">Lynn</a>, <a href="#">Luo</a>, <a href="#">Zhang</a>, <a href="#">Zhao</a></p>
+        </div> -->
+        </footer>
+    </div>
+
+</body>
+
+</html>
